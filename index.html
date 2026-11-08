@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Emmanuel Mbroumsadja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: gauche-aligné, filets fins. Photo + présentation + fiche de Garoua en haut, sections à étiquette latérale, projets en liste filtrable. Signature : pilules (filtres, statuts, boutons) et un cadre jaune décalé derrière la photo. */
+:root {
+  --bg: #EEF2EF;
+  --surface: #E2EAE5;
+  --fg: #10201E;
+  --muted: #51635D;
+  --line: #C3D0CA;
+  --accent: #0A6676;
+  --accent-fg: #FFFFFF;
+  --mark: #F0C23B;
+
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Échelle de texte */
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: clamp(1.0625rem, 2.4vw, 1.25rem);
+
+  /* Échelle d'espacement (base 8) */
+  --s-1: .25rem;
+  --s-2: .5rem;
+  --s-3: 1rem;
+  --s-4: 1.5rem;
+  --s-5: 2rem;
+  --s-6: 3rem;
+  --s-7: clamp(4rem, 9vw, 7rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1615;
+    --surface: #142220;
+    --fg: #E4EEEA;
+    --muted: #93A8A0;
+    --line: #27403B;
+    --accent: #5CC2D2;
+    --accent-fg: #06232A;
+    --mark: #F0C23B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1615;
+  --surface: #142220;
+  --fg: #E4EEEA;
+  --muted: #93A8A0;
+  --line: #27403B;
+  --accent: #5CC2D2;
+  --accent-fg: #06232A;
+  --mark: #F0C23B;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  padding-block: var(--s-3) var(--s-6);
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+.wrap { max-width: 70rem; margin-inline: auto; }
+
+/* Barre du haut */
+.topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--s-4); font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.topbar nav { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); }
+.topbar nav a { display: inline-flex; align-items: center; min-height: 2.75rem; padding-inline: var(--s-1); color: var(--muted); text-decoration: none; }
+.topbar nav a:hover { color: var(--accent); }
+
+/* Boutons */
+.btn { display: inline-flex; align-items: center; gap: .75rem; min-height: 3.25rem; padding: 0 1.75rem; border-radius: 999px; font-weight: 600; text-decoration: none; background: var(--accent); color: var(--accent-fg); border: 1px solid var(--accent); }
+.btn:hover { text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--fg); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn .arrow { display: inline-block; }
+
+/* Hero : sur téléphone photo, texte, fiche ; sur grand écran texte à gauche, photo et fiche à droite */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "photo" "text" "fiche"; gap: var(--s-5); padding-block: var(--s-5) var(--s-7); }
+@media (min-width: 860px) {
+  .hero { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); grid-template-areas: "text photo" "text fiche"; column-gap: 4rem; row-gap: var(--s-5); align-items: center; padding-block: var(--s-6) var(--s-7); }
+}
+.hero-text { grid-area: text; min-width: 0; }
+.hero h1 { font-size: clamp(2.75rem, 9vw, 6.25rem); line-height: .95; letter-spacing: -.035em; font-weight: 700; overflow-wrap: anywhere; }
+.hero h1 .first { background: linear-gradient(var(--mark), var(--mark)) 0 88% / 100% .22em no-repeat; }
+.hero .lead { margin-top: var(--s-4); max-width: 34rem; font-size: var(--fs-lg); }
+.hero .lead span { color: var(--muted); }
+.cta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); margin-top: var(--s-5); }
+
+.portrait { grid-area: photo; margin: 0 10px 10px 0; width: 9.5rem; }
+.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 22%; box-shadow: 8px 8px 0 var(--mark); background: var(--surface); }
+@media (min-width: 860px) {
+  .portrait { width: 100%; max-width: 22rem; margin-right: 12px; margin-bottom: 12px; }
+  .portrait img { box-shadow: 12px 12px 0 var(--mark); }
+}
+
+.fiche { grid-area: fiche; margin: 0; border-top: 2px solid var(--fg); }
+.fiche div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: var(--s-3); padding-block: .75rem; border-bottom: 1px solid var(--line); }
+.fiche dt { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: .2rem; }
+.fiche dd { margin: 0; font-size: var(--fs-md); }
+.fiche .mono { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--muted); }
+
+/* Sections */
+.sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); padding-block: var(--s-7); border-top: 1px solid var(--line); }
+@media (min-width: 860px) { .sec { grid-template-columns: 13rem minmax(0, 1fr); gap: var(--s-6); } }
+.sec-label { align-self: start; }
+@media (min-width: 860px) { .sec-label { position: sticky; top: calc(var(--s-4) + env(safe-area-inset-top, 0px)); } }
+.sec-label h2 { font-size: 1.75rem; letter-spacing: -.02em; font-weight: 700; line-height: 1.15; }
+.sec-label p { margin-top: var(--s-2); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); letter-spacing: .04em; }
+
+/* Filtres */
+.filters { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-5); }
+.filters button { font: inherit; font-family: var(--font-mono); font-size: var(--fs-sm); min-height: 2.75rem; padding: 0 1.1rem; border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; cursor: pointer; }
+.filters button:hover { border-color: var(--accent); color: var(--accent); }
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+
+/* Projets */
+.proj { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); padding-block: var(--s-5); border-top: 1px solid var(--line); }
+.proj:first-of-type { border-top: 2px solid var(--fg); }
+@media (min-width: 700px) { .proj { grid-template-columns: 13rem minmax(0, 1fr); gap: var(--s-5); } }
+.proj h3 { font-size: 1.375rem; letter-spacing: -.02em; font-weight: 650; line-height: 1.2; }
+.status { display: inline-flex; align-items: center; gap: .45rem; margin-top: var(--s-2); font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .04em; padding: .2rem .7rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+.status::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; border: 1.5px solid currentColor; }
+.status.live { border-color: var(--accent); color: var(--accent); }
+.status.live::before { background: currentColor; }
+.proj p { max-width: 62ch; }
+.tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-3); }
+.tags li { font-family: var(--font-mono); font-size: var(--fs-xs); padding: .2rem .6rem; background: var(--surface); border-radius: 4px; }
+.proj .links { margin-top: var(--s-2); display: flex; flex-wrap: wrap; gap: 0 var(--s-4); font-weight: 600; }
+.proj .links a { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.75rem; }
+
+/* Compétences */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--s-5) var(--s-6); }
+.skills h3 { font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-bottom: var(--s-2); border-bottom: 1px solid var(--line); margin-bottom: var(--s-3); }
+.skills li { padding-block: .2rem; }
+.skills .learning h3 { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Parcours */
+.path { position: relative; display: grid; gap: var(--s-5); padding-left: 1.75rem; }
+.path::before { content: ""; position: absolute; left: .3rem; top: .5rem; bottom: .5rem; width: 2px; background: var(--line); }
+.path li { position: relative; }
+.path li::before { content: ""; position: absolute; left: -1.75rem; top: .5rem; width: .65rem; height: .65rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.path li.now::before { background: var(--accent); }
+.path h3 { font-size: 1.2rem; font-weight: 650; letter-spacing: -.01em; }
+.path .meta { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); letter-spacing: .04em; margin-top: var(--s-1); }
+.path p { margin-top: var(--s-2); color: var(--muted); max-width: 40ch; }
+.side-note { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--line); max-width: 40ch; }
+.side-note b { font-family: var(--font-display); font-weight: 650; }
+.side-note span { display: block; color: var(--muted); }
+
+/* Contact */
+.contact p { max-width: 40ch; font-size: var(--fs-lg); }
+.contact .cta { margin-top: var(--s-4); }
+.contact ul { margin-top: var(--s-4); display: grid; gap: var(--s-1); }
+.contact li { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); min-height: 2.75rem; }
+.contact li span { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); min-width: 6rem; }
+.contact li code { font-family: var(--font-mono); font-size: var(--fs-md); overflow-wrap: anywhere; }
+
+footer { padding-top: var(--s-3); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--s-4); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); letter-spacing: .04em; }
+footer a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  a, .filters button, .btn { transition: color .15s, border-color .15s, background-color .15s, transform .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn .arrow { transition: transform .15s; }
+  .btn:hover .arrow { transform: translateX(4px); }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <span>Portfolio · 2026</span>
+    <nav aria-label="Sections">
+      <a href="#projets">Projets</a>
+      <a href="#competences">Compétences</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <figure class="portrait"><img src="portrait.jpg" alt="Portrait d'Emmanuel Mbroumsadja" width="800" height="1000" decoding="async" fetchpriority="high"></figure>
+
+    <div class="hero-text">
+      <h1><span class="first">Emmanuel</span><br>Mbroumsadja</h1>
+      <p class="lead">Développeur full-stack, plutôt côté backend. J'ai obtenu ma licence en informatique à l'Université de Garoua en 2026 et je suis en master recherche. <span>Je développe des applications web et mobiles, et je me forme au machine learning et à la data.</span></p>
+      <div class="cta">
+        <a class="btn" href="#projets">Voir mes projets <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#contact">Me contacter</a>
+      </div>
+    </div>
+
+    <dl class="fiche">
+      <div><dt>Basé à</dt><dd>Garoua, Cameroun<br><span class="mono">9°18′ N · 13°24′ E · UTC+1</span></dd></div>
+      <div><dt>Études</dt><dd>Master informatique recherche, Université de Garoua</dd></div>
+      <div><dt>En cours</dt><dd>Machine learning et data</dd></div>
+    </dl>
+  </header>
+
+  <section class="sec" id="projets" aria-labelledby="h-projets">
+    <div class="sec-label">
+      <h2 id="h-projets">Projets</h2>
+      <p id="count" aria-live="polite">3 projets</p>
+    </div>
+    <div>
+      <div class="filters" role="group" aria-label="Filtrer les projets">
+        <button type="button" data-filter="all" aria-pressed="true">Tous</button>
+        <button type="button" data-filter="web" aria-pressed="false">Web</button>
+        <button type="button" data-filter="mobile" aria-pressed="false">Mobile</button>
+        <button type="button" data-filter="sante" aria-pressed="false">Santé</button>
+        <button type="button" data-filter="ia" aria-pressed="false">IA</button>
+      </div>
+
+      <div id="projects">
+        <article class="proj" data-cat="web mobile ia">
+          <div>
+            <h3>CampusEdu</h3>
+            <span class="status live">En ligne</span>
+          </div>
+          <div>
+            <p>Projet complet pour la Faculté de Médecine de l'Université de Garoua. Une API alimente une plateforme d'administration web et une application Android, où les étudiants cherchent et téléchargent les cours et les sujets. Un agent IA qui génère des QCM est en préparation.</p>
+            <ul class="tags">
+              <li>Next.js 14</li><li>TypeScript</li><li>Express</li><li>PostgreSQL</li><li>Kotlin</li><li>Jetpack Compose</li>
+            </ul>
+            <div class="links"><a href="https://campus-edu-theta.vercel.app" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+        <article class="proj" data-cat="web sante">
+          <div>
+            <h3>Planificateur de stage</h3>
+            <span class="status">Conception</span>
+          </div>
+          <div>
+            <p>Génère le planning d'un stage selon les règles de l'hôpital choisi. Les gardes, les permanences et les récupérations varient d'un hôpital à l'autre, et les participants peuvent être répartis en petits groupes. Le planning s'affiche en calendrier et s'exporte en PDF ou en Word.</p>
+            <ul class="tags"><li>Node.js</li><li>Scheduler</li><li>Export PDF et Word</li></ul>
+          </div>
+        </article>
+
+        <article class="proj" data-cat="web">
+          <div>
+            <h3>TOUBA BIJOUX</h3>
+            <span class="status live">En ligne</span>
+          </div>
+          <div>
+            <p>Site vitrine de montres et bijoux pour femmes, à Garoua. Chaque article affiche sa photo et son prix en FCFA, et se commande par WhatsApp. Le gérant met à jour le catalogue depuis un espace de gestion.</p>
+            <ul class="tags"><li>Next.js</li><li>MongoDB</li><li>Tailwind CSS</li><li>SEO</li></ul>
+            <div class="links"><a href="https://touba-bijoux.com" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="competences" aria-labelledby="h-comp">
+    <div class="sec-label"><h2 id="h-comp">Compétences</h2><p>Niveau intermédiaire</p></div>
+    <div class="skills">
+      <div><h3>Backend</h3><ul><li>Node.js, Express</li><li>API REST</li><li>Sequelize</li><li>JWT, refresh tokens</li><li>Multer, upload de fichiers</li></ul></div>
+      <div><h3>Frontend</h3><ul><li>Next.js 14</li><li>TypeScript</li><li>Tailwind CSS</li><li>PWA</li></ul></div>
+      <div><h3>Données</h3><ul><li>MySQL</li><li>PostgreSQL (Supabase, Neon)</li><li>SQLite</li><li>MongoDB</li></ul></div>
+      <div><h3>Mobile</h3><ul><li>Kotlin, Jetpack Compose</li><li>Flutter</li></ul></div>
+      <div><h3>Déploiement</h3><ul><li>Render, Vercel</li><li>Cloudinary</li><li>Backblaze B2</li></ul></div>
+      <div class="learning"><h3>En apprentissage</h3><ul><li>Machine learning</li><li>Analyse de données</li><li>RAG, pgvector</li></ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="parcours" aria-labelledby="h-par">
+    <div class="sec-label"><h2 id="h-par">Parcours</h2><p>Cameroun</p></div>
+    <div>
+      <ol class="path">
+        <li>
+          <h3>Baccalauréat D</h3>
+          <div class="meta">Enseignement secondaire</div>
+        </li>
+        <li>
+          <h3>Licence en informatique</h3>
+          <div class="meta">Université de Garoua · 2026</div>
+          <p>Suivie en parallèle du niveau 1 en sciences biomédicales.</p>
+        </li>
+        <li class="now">
+          <h3>Master informatique recherche</h3>
+          <div class="meta">Université de Garoua · en cours</div>
+          <p>Je cherche à acquérir des compétences en machine learning et en data.</p>
+        </li>
+      </ol>
+      <div class="side-note">
+        <b>Club Génie Numérique</b>
+        <span>Engagé dans le club de ma faculté.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec contact" id="contact" aria-labelledby="h-contact">
+    <div class="sec-label"><h2 id="h-contact">Contact</h2></div>
+    <div>
+      <p>Mon travail est sur GitHub, qui reste pour l'instant le moyen de me joindre.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/mbroumsadja" target="_blank" rel="noopener">Ouvrir mon GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <ul id="contact-list"></ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>Emmanuel Mbroumsadja · Garoua, Cameroun · 2026</span>
+    <a href="#top-page" onclick="window.scrollTo({top:0});return false;">Haut de page ↑</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  // Renseigner ces champs pour afficher un e-mail ou un numéro WhatsApp dans la section Contact.
+  var CONTACT = { email: "", whatsapp: "" };
+
+  var list = document.getElementById("contact-list");
+  [["E-mail", CONTACT.email], ["WhatsApp", CONTACT.whatsapp]].forEach(function (p) {
+    if (!p[1]) return;
+    var li = document.createElement("li");
+    var s = document.createElement("span"); s.textContent = p[0];
+    var c = document.createElement("code"); c.textContent = p[1];
+    li.appendChild(s); li.appendChild(c);
+    list.appendChild(li);
+  });
+
+  var buttons = document.querySelectorAll(".filters button");
+  var items = document.querySelectorAll("#projects .proj");
+  var count = document.getElementById("count");
+
+  function apply(filter) {
+    var n = 0;
+    items.forEach(function (el) {
+      var show = filter === "all" || el.getAttribute("data-cat").split(" ").indexOf(filter) !== -1;
+      el.hidden = !show;
+      if (show) n++;
+    });
+    count.textContent = n + (n > 1 ? " projets" : " projet");
+    buttons.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-filter") === filter ? "true" : "false");
+    });
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () { apply(b.getAttribute("data-filter")); });
+  });
+})();
+</script>
+</body>
+</html>
