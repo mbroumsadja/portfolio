@@ -184,7 +184,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* Parcours */
 .path { position: relative; display: grid; gap: var(--s-5); padding-left: 1.75rem; }
-.path::before { content: ""; position: absolute; left: .3rem; top: .5rem; bottom: .5rem; width: 2px; background: var(--line); }
+/* un seul élément : pas de ligne de liaison */
 .path li { position: relative; }
 .path li::before { content: ""; position: absolute; left: -1.75rem; top: .5rem; width: .65rem; height: .65rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
 .path li.now::before { background: var(--accent); }
@@ -235,7 +235,7 @@ footer a:hover { color: var(--accent); }
     <nav aria-label="Sections">
       <a href="#projets">Projets</a>
       <a href="#competences">Compétences</a>
-      <a href="#parcours">Parcours</a>
+      <a href="#parcours">Formation</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -247,7 +247,7 @@ footer a:hover { color: var(--accent); }
 
     <div class="hero-text">
       <h1><span class="first">Emmanuel</span><br>Mbroumsadja</h1>
-      <p class="lead">Développeur full-stack, plutôt côté backend. J'ai obtenu ma licence en informatique à l'Université de Garoua en 2026 et je suis en master recherche. <span>Je développe des applications web et mobiles, et je me forme au machine learning et à la data.</span></p>
+      <p class="lead">Développeur full-stack, plutôt côté backend. J'ai obtenu ma licence en informatique à l'Université de Garoua en 2026. <span>Je développe des applications web et mobiles, et je me forme au machine learning et à la data.</span></p>
       <div class="cta">
         <a class="btn" href="#projets">Voir mes projets <svg class="ico ico-right" aria-hidden="true"><use href="#i-right"/></svg></a>
         <a class="btn ghost" href="#contact">Me contacter</a>
@@ -256,7 +256,7 @@ footer a:hover { color: var(--accent); }
 
     <dl class="fiche">
       <div><dt>Basé à</dt><dd>Garoua, Cameroun<br><span class="mono">9°18′ N · 13°24′ E · UTC+1</span></dd></div>
-      <div><dt>Études</dt><dd>Master informatique recherche, Université de Garoua</dd></div>
+      <div><dt>Études</dt><dd>Licence en informatique, Université de Garoua</dd></div>
       <div><dt>En cours</dt><dd>Machine learning et data</dd></div>
     </dl>
   </section>
@@ -264,7 +264,7 @@ footer a:hover { color: var(--accent); }
   <section class="sec" id="projets" aria-labelledby="h-projets">
     <div class="sec-label">
       <h2 id="h-projets">Projets</h2>
-      <p id="count" aria-live="polite">3 projets</p>
+      <p id="count" aria-live="polite">4 projets</p>
     </div>
     <div>
       <div class="filters" role="group" aria-label="Filtrer les projets">
@@ -287,6 +287,17 @@ footer a:hover { color: var(--accent); }
               <li>Next.js 14</li><li>TypeScript</li><li>Express</li><li>PostgreSQL</li><li>Kotlin</li><li>Jetpack Compose</li>
             </ul>
             <div class="links"><a href="https://campus-edu-theta.vercel.app" target="_blank" rel="noopener">Voir le site <svg class="ico ico-ne" aria-hidden="true"><use href="#i-ne"/></svg><span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a></div>
+          </div>
+        </article>
+
+        <article class="proj" data-cat="sante">
+          <div>
+            <h3>Gestion de la quote-part</h3>
+            <span class="status">En test</span>
+          </div>
+          <div>
+            <p>Calcule la répartition de la quote-part (les primes) du personnel d'un centre médical de Garoua. Chaque part tient compte du grade, de la productivité du service, de l'assiduité et de l'ancienneté, et un agent est exclu à partir de deux tiers d'absences. Le calcul tourne dans un classeur Excel automatisé en VBA, avec un tableau de bord. Une version de bureau avec Tauri est à l'étude.</p>
+            <ul class="tags"><li>Excel</li><li>VBA</li><li>Tableau de bord</li><li>Tauri (à l'étude)</li></ul>
           </div>
         </article>
 
@@ -321,7 +332,7 @@ footer a:hover { color: var(--accent); }
     <div class="skills">
       <div><h3>Backend</h3><ul><li>Node.js, Express</li><li>API REST</li><li>Sequelize</li><li>JWT, refresh tokens</li><li>Multer, upload de fichiers</li></ul></div>
       <div><h3>Frontend</h3><ul><li>Next.js 14</li><li>TypeScript</li><li>Tailwind CSS</li><li>PWA</li></ul></div>
-      <div><h3>Données</h3><ul><li>MySQL</li><li>PostgreSQL (Supabase, Neon)</li><li>SQLite</li><li>MongoDB</li></ul></div>
+      <div><h3>Données</h3><ul><li>MySQL</li><li>PostgreSQL (Supabase, Neon)</li><li>SQLite</li><li>MongoDB</li><li>Excel, VBA</li></ul></div>
       <div><h3>Mobile</h3><ul><li>Kotlin, Jetpack Compose</li><li>Flutter</li></ul></div>
       <div><h3>Déploiement</h3><ul><li>Render, Vercel</li><li>Cloudinary</li><li>Backblaze B2</li></ul></div>
       <div class="learning"><h3>En apprentissage</h3><ul><li>Machine learning</li><li>Analyse de données</li><li>RAG, pgvector</li></ul></div>
@@ -329,22 +340,12 @@ footer a:hover { color: var(--accent); }
   </section>
 
   <section class="sec" id="parcours" aria-labelledby="h-par">
-    <div class="sec-label"><h2 id="h-par">Parcours</h2><p>Cameroun</p></div>
+    <div class="sec-label"><h2 id="h-par">Formation</h2><p>Cameroun</p></div>
     <div>
       <ol class="path">
-        <li>
-          <h3>Baccalauréat D</h3>
-          <div class="meta">Enseignement secondaire</div>
-        </li>
-        <li>
+        <li class="now">
           <h3>Licence en informatique</h3>
           <div class="meta">Université de Garoua · 2026</div>
-          <p>Suivie en parallèle du niveau 1 en sciences biomédicales.</p>
-        </li>
-        <li class="now">
-          <h3>Master informatique recherche</h3>
-          <div class="meta">Université de Garoua · en cours</div>
-          <p>Je cherche à acquérir des compétences en machine learning et en data.</p>
         </li>
       </ol>
       <div class="side-note">
